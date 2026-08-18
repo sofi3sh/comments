@@ -1,0 +1,15 @@
+.article-image-gallery { margin: 24px 0; }
+.article-image-gallery__slider { position: relative; overflow: hidden; }
+.article-image-gallery__image-button { display: block; width: 100%; padding: 0; cursor: pointer; background: #f4f4f4; }
+.article-image-gallery__image-button img { display: block; width: 100%; max-height: 620px; object-fit: contain; margin: 0 auto; }
+.article-image-gallery__prev, .article-image-gallery__next { position: absolute; top: 50%; z-index: 2; width: 36px; height: 52px; padding: 0; background: transparent; color: var(--color-red-1); transform: translateY(-50%); cursor: pointer; transition: color .2s ease, opacity .2s ease; }
+.article-image-gallery__prev { left: 12px; }.article-image-gallery__next { right: 12px; }
+.article-image-gallery__prev::after { content: '‹'; }.article-image-gallery__next::after { content: '›'; }
+.article-image-gallery__prev::after, .article-image-gallery__next::after { font-size: 52px; font-weight: 300; line-height: .8; }
+.article-image-gallery__prev:hover, .article-image-gallery__next:hover { color: #b50027; }
+.article-image-gallery__prev.swiper-button-disabled, .article-image-gallery__next.swiper-button-disabled { color: var(--theme-description-vertical-card); opacity: .35; cursor: default; }
+.article-image-gallery__pagination { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
+.article-image-gallery__pagination .swiper-pagination-bullet { width: 8px; height: 8px; margin: 0 !important; background: var(--theme-description-vertical-card); opacity: .35; transition: opacity .2s ease, transform .2s ease; }
+.article-image-gallery__pagination .swiper-pagination-bullet-active { background: var(--color-red-1); opacity: 1; transform: scale(1.25); }
+
+.image-gallery-tool__list { display: grid; gap: 12px; margin-bottom: 12px; }.image-gallery-tool__item { display: grid; grid-template-columns: 160px 1fr auto; gap: 12px; align-items: start; padding: 12px; border: 1px solid #d8d8d8; }.image-gallery-tool__item img { width: 160px; height: 100px; object-fit: cover; }.image-gallery-tool__fields { display: grid; gap: 8px; }.image-gallery-tool__fields label { display: grid; gap: 4px; font-size: 13px; }.image-gallery-tool__fields input { width: 100%; padding: 6px; border: 1px solid #bbb; }.image-gallery-tool__controls { display: flex; gap: 4px; }.image-gallery-tool__controls button, .image-gallery-tool__add { padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; cursor: pointer; }

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="7"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="true"
+    bootstrap="psalm-stubs/backpack-pro.php"
+>
+    <stubs>
+        <file name="psalm-stubs/backpack-pro.php" />
+    </stubs>
+
+    <projectFiles>
+        <directory name="app" />
+        <file name="bootstrap/providers.php" />
+        <directory name="config" />
+        <directory name="routes" />
+        <directory name="database/factories" />
+        <directory name="database/seeders" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <UndefinedMagicMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Illuminate\Database\Eloquent\Builder::where" />
+            </errorLevel>
+        </UndefinedMagicMethod>
+
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="app/Models" />
+                <directory name="app/Http/Requests" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+    </issueHandlers>
+
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin" />
+    </plugins>
+</psalm>

@@ -1,0 +1,25 @@
+<div class="text-card {{ $isVisible ? 'text-card--visible' : 'text-card--hidden' }}">
+    <div class="text-card__info">
+        <div class="text-card__info--category">
+            <x-others.article-breadcrumbs-component :option="'featured'" :article="$article" :isVisible="$isVisible" />
+        </div>
+
+        @if($viewsCount)
+            <div class="text-card__info-watch">
+                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.46429 0C5.84778 0 2.56814 1.97862 0.148106 5.19243C-0.0493688 5.45573 -0.0493688 5.82358 0.148106 6.08688C2.56814 9.30456 5.84778 11.2832 9.46429 11.2832C13.0808 11.2832 16.3604 9.30456 18.7805 6.09075C18.9779 5.82745 18.9779 5.45961 18.7805 5.19631C16.3604 1.97862 13.0808 0 9.46429 0ZM9.72371 9.61433C7.32304 9.76534 5.34054 7.78671 5.49155 5.38216C5.61546 3.39967 7.22236 1.79276 9.20486 1.66886C11.6055 1.51785 13.588 3.49647 13.437 5.90102C13.3092 7.87964 11.7023 9.48655 9.72371 9.61433ZM9.60368 7.77897C8.31041 7.86028 7.24172 6.79547 7.32691 5.5022C7.39273 4.43351 8.26007 3.57004 9.32876 3.50034C10.622 3.41903 11.6907 4.48385 11.6055 5.77712C11.5358 6.84968 10.6685 7.71314 9.60368 7.77897Z"/>
+                </svg>
+                <span>{{ $viewsCount }}</span>
+            </div>
+        @endif
+
+    </div>
+
+    @if($title)
+        <a href="{{ $articleUrl }}" class="text-card__title">
+            {{ $title }}
+        </a>
+    @else
+        <div class="text-card__title"></div>
+    @endif
+</div>

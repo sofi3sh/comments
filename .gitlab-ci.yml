@@ -1,0 +1,86 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: 'unix:///runner/services/docker/docker.sock'
+
+  # Two images are built from this repo now: the FrankenPHP/Octane web server
+  # and the console (queue + scheduler). They are tagged under separate paths.
+  APP_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME/app:latest
+  APP_CURRENT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME/app:$CI_COMMIT_SHORT_SHA
+  CONSOLE_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME/console:latest
+  CONSOLE_CURRENT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME/console:$CI_COMMIT_SHORT_SHA
+
+  APP_VERSION: $CI_COMMIT_SHORT_SHA
+  CACHE_DIR: /cache
+
+# The two builds share every stage except the final one, but they must not
+# share a cache directory or each would evict the other's layers.
+.build-template: &build-template
+  image: docker:27.5
+  stage: build
+  services:
+    - name: docker:27.5-dind
+      alias: docker
+  tags:
+    - stage
+  environment:
+    name: stage
+  before_script:
+    - echo "$BASE_IMAGE_REGISTRY_PASSWORD" | docker login -u $BASE_IMAGE_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+  only:
+    - main
+
+stage-build-app:
+  <<: *build-template
+  script:
+    - docker buildx build
+      --platform linux/amd64
+      --provenance false
+      --cache-from=type=local,src=$CACHE_DIR/app
+      --cache-to=type=local,dest=$CACHE_DIR/app,mode=max
+      --file=./docker/app/Dockerfile
+      --secret id=composer_auth,src="$COMPOSER_AUTH"
+      -t $APP_LATEST
+      -t $APP_CURRENT
+      --load .
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker push $APP_LATEST
+    - docker push $APP_CURRENT
+
+stage-build-console:
+  <<: *build-template
+  script:
+    - docker buildx build
+      --platform linux/amd64
+      --provenance false
+      --cache-from=type=local,src=$CACHE_DIR/console
+      --cache-to=type=local,dest=$CACHE_DIR/console,mode=max
+      --file=./docker/console/Dockerfile
+      --secret id=composer_auth,src="$COMPOSER_AUTH"
+      -t $CONSOLE_LATEST
+      -t $CONSOLE_CURRENT
+      --load .
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker push $CONSOLE_LATEST
+    - docker push $CONSOLE_CURRENT
+
+stage-deploy:
+  image: alpine:3.21.1
+  stage: deploy
+  tags:
+    - stage
+  needs:
+    - stage-build-app
+    - stage-build-console
+  script:
+    - chmod +x ./docker/deploy.sh
+    - ./docker/deploy.sh
+  environment:
+    name: stage
+    url: https://miss.kiev.ua/
+  only:
+    - main

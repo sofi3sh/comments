@@ -1,0 +1,215 @@
+.significant-list{
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+}
+
+.significant-list__navigation{
+    display: flex;
+    gap:6px 12px;
+    flex-wrap: wrap;
+}
+
+.significant-list__navigation-letter{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--theme-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.significant-list__navigation-letter:hover{
+    color: var(--color-red-1);
+    transform: translateY(-2px);
+}
+
+.significant-list__navigation-letter:active{
+    transform: translateY(0);
+    background-color: rgba(233, 58, 58, 0.1);
+}
+
+.significant-list__navigation-letter--active{
+    color: var(--color-red-1);
+}
+
+.significant-list__list{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: var(--theme-card-breadcrumbs-separator);
+}
+
+.significant-list__item{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 24px;
+    background-color: var(--theme-bg-vertical-card);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, border-left-color 0.2s ease;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.significant-list__item:hover{
+    background-color: var(--theme-bg);
+    transform: translateX(4px);
+    border-left-color: var(--color-red-1);
+}
+
+.significant-list__item-number{
+    min-width: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-2);
+    text-align: center;
+}
+
+.significant-list__item-photo{
+    width: 240px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--color-light-gray-4);
+}
+
+.significant-list__item-photo-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.significant-list__item-info{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.significant-list__item-name{
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--theme-text);
+    line-height: 1.4;
+}
+
+.significant-list__item-birthdate{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-gray-2);
+    line-height: 1.4;
+}
+
+.significant-list__pagination{
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+}
+
+.significant-list__pagination-button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--theme-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.significant-list__pagination-button:hover{
+    color: var(--color-red-1);
+    transform: translateY(-2px);
+}
+
+.significant-list__pagination-button:active{
+    transform: translateY(0);
+    background-color: rgba(233, 58, 58, 0.1);
+}
+
+.significant-list__pagination-button--active{
+    color: var(--color-red-1);
+}
+
+.significant-list__pagination-button--disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+@media(max-width: 1920px) {
+
+}
+@media(max-width: 1536px) {
+
+    .significant-list__navigation-letter{
+        font-size: 22px;
+    }
+    .significant-list__pagination-button{
+        font-size: 22px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .significant-list__navigation-letter{
+        font-size: 20px;
+    }
+    .significant-list__pagination-button{
+        font-size: 20px;
+    }
+}
+@media(max-width: 992px) {
+    .significant-list__item{
+        flex-direction: column;
+        padding: 10px 12px;
+        gap:12px;
+        align-items: flex-start;
+    }
+    .significant-list__item-photo{
+        width: 280px;
+        height: 160px;
+    }
+    .significant-list__item-number{
+        font-size: 14px;
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        min-width: 25px;
+        min-height: 25px;
+        text-align: center;
+        background-color: var(--theme-card-breadcrumbs-separator);
+        border-radius: 2px;
+        padding: 2px 4px;
+    }
+    .significant-list__item-name{
+        font-size: 20px;
+    }
+    
+}
+@media(max-width: 640px) {
+    .significant-list__item-photo{
+        width: 250px;
+        height: 140px;
+    }
+
+    .significant-list__item-name{
+        font-size: 18px;
+    }
+    .significant-list__item-birthdate{
+        font-size: 14px;
+    }
+    
+}

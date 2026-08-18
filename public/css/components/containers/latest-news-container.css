@@ -1,0 +1,56 @@
+@import '../../variables.css';
+
+.latest-news{
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    margin: 0 auto;
+    max-width: var(--max-width);
+}
+
+.latest-news__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 20px;
+}
+
+
+
+@media(max-width: 1920px) {
+    .latest-news{
+        gap: 34px;
+    }
+    .latest-news__container{
+        gap: 30px 15px;
+    }
+}
+@media(max-width: 1536px) {
+    .latest-news{
+        gap: 20px;
+    }
+    .latest-news__container{
+        gap: 22px 12px;
+    }
+    
+}
+
+@media(max-width: 1200px) {
+    .latest-news__container{
+        gap: 20px 10px;
+    }
+}
+@media(max-width: 992px) {
+    .latest-news__container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media(max-width: 768px) {
+    .latest-news__container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(max-width: 640px) {
+    .latest-news__container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

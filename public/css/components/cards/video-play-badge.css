@@ -1,0 +1,18 @@
+.card-video-cover {
+    position: relative;
+    display: block;
+}
+
+.card-video-cover__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-top: clamp(10px, 1.5vw, 18px) solid transparent;
+    border-bottom: clamp(10px, 1.5vw, 18px) solid transparent;
+    border-left: clamp(16px, 2.25vw, 27px) solid var(--color-youtube-red);
+    filter: drop-shadow(0 1px 3px rgb(0 0 0 / 45%));
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}

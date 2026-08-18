@@ -1,0 +1,133 @@
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+.social-links__icon{
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.social-links__icon:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+.social-links__icon >svg{
+    width: 100%;
+    height: auto;
+
+}
+
+.social-links--dynamic{
+    gap: 15px;
+}
+
+.social-links--dynamic .social-links__icon{
+    width: 30px;
+    height: 30px;
+    background-color: var(--theme-social-bg);
+}
+.social-links--dynamic .social-links__icon >svg{
+    max-height: 17px;
+    max-width: 16px;
+    fill: var(--theme-social-icon);
+}
+
+.social-links--static{
+    gap: 18px;
+}
+
+.social-links--static .social-links__icon{
+    width: 35px;
+    height: 35px;
+    background-color: var(--theme-footer-social-bg);
+}
+.social-links--static .social-links__icon >svg{
+    max-height: 20px;
+    max-width: 19px;
+    fill: var(--theme-footer-social-icon);
+}
+
+@media(max-width: 1920px) {
+    .social-links--static {
+        gap: 14px;
+    }
+    .social-links--static .social-links__icon{
+        width: 27px;
+        height: 27px;
+    }
+
+    .social-links--static .social-links__icon >svg{
+        max-height: 16px;
+        max-width: 16px;
+    }
+}
+@media(max-width: 1536px) {
+    .social-links--dynamic {
+        gap: 11px;
+    }
+    .social-links--dynamic .social-links__icon{
+        width: 27px;
+        height: 27px;
+    }
+
+    .social-links--static {
+        gap: 11px;
+    }
+    .social-links--static .social-links__icon{
+        width: 21px;
+        height: 21px;
+    }
+    .social-links--static .social-links__icon >svg{
+        max-height: 12px;
+        max-width: 12px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .social-links--static {
+        gap: 18px;
+    }
+    .social-links--static .social-links__icon{
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-links--static .social-links__icon >svg{
+        max-height: 20px;
+        max-width: 20px;
+    }
+}
+
+@media(max-width: 768px) {
+    .social-links--static {
+        gap: 20px;
+    }
+    .social-links--static .social-links__icon{
+        width: 60px;
+        height: 60px;
+    }
+    .social-links--static .social-links__icon >svg{
+        max-height: 35px;
+        max-width: 33px;
+    }
+
+}
+@media(max-width: 640px) {
+    .social-links--static {
+        gap: 13px;
+    }
+    .social-links--static .social-links__icon{
+        width: 36px;
+        height: 36px;
+    }
+    .social-links--static .social-links__icon >svg{
+        max-height: 21px;
+        max-width: 20px;
+    }
+}
+
+
+
+

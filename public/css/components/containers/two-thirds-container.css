@@ -1,0 +1,26 @@
+.two-thirds-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    gap: 20px;
+}
+.two-thirds-container__left{
+    width: 66.66%;
+}
+.two-thirds-container__right{
+    width: 33.33%;
+}
+
+@media (max-width: 1200px) {
+    .two-thirds-container {
+        flex-direction: column;
+        gap:40px;
+    }
+    .two-thirds-container__left{
+        width: 100%;
+    }
+    .two-thirds-container__right{
+        width: 100%;
+    }
+}

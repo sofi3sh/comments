@@ -1,0 +1,14 @@
+import 'virtual:svg-icons-register';
+import './bootstrap';
+import './swipers/swiper-container';
+import './swipers/main-swiper';
+import './articles/image-gallery';
+import '../css/article-image-gallery.css';
+import './smooth-anchors';
+import './articles/article-rest-content';
+import './articles/article-views';
+import './articles/article-scroll';
+import './header/article-types-dropdown';
+import './header/header-tags';
+import './footer/footer-categories';
+import './footer/footer-pages';

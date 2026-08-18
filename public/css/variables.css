@@ -1,0 +1,231 @@
+:root {
+    --font-montserrat: 'Montserrat', sans-serif;
+
+    --max-width: 1920px;
+    
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-font-black: #1F1F1F;
+
+    --color-gray-1:#6E6E6E;
+    --color-gray-2:#858D9A;
+    --color-gray-3:#A7B1C0;
+    --color-gray-4:#DADADA;
+    --color-gray-5:#7C7C7C;
+    --color-gray-6:#B9B9B9;
+
+    --color-light-gray: #EDEDED;
+    --color-light-gray-2: #E0E0E0;
+    --color-light-gray-4: #F8F8F8;
+    --color-light-gray-3: #C3C3C3;
+    --color-light-gray-5: #BFC7D4;
+    --color-light-gray-6: #F6F6F6;
+    --color-light-gray-7: #C3C7CC;
+    --color-light-gray-8: #F3F3F3;
+   
+    --color-dark-gray: #303030;
+    --color-dark-gray-2:#313131;
+    --color-dark-gray-1:#1A1A1A;
+    --color-dark-gray:#1D1D1D;
+    --color-dark-gray-3:#171717;
+    --color-dark-gray-5:#323232;
+    --color-dark-gray-6:#3F3F3F;
+    --color-dark-gray-7:#434343;
+    --color-dark-gray-4:#282828;
+    --color-dark-gray-9:#111111;
+    --color-dark-gray-8:#141414;
+
+    --color-youtube-red: #FF3F3F;
+    --color-red-1:#E93A3A;
+    
+
+
+
+
+    --theme-bg: var(--color-white);
+    --theme-text: var(--color-font-black);
+
+    --theme-border-language-item-border: var(--color-light-gray-3);
+    --theme-border-language-item-hover-border: var(--color-light-gray-2);
+    --theme-border-language-item-active-border: var(--color-red-1);
+
+    --theme-theme-bg: var(--color-dark-gray);
+    --theme-theme-icon: var(--color-white);
+
+    --theme-social-bg: var(--color-light-gray-2);
+    --theme-social-icon: var(--color-dark-gray-1);
+
+    --theme-search-icon: var(--color-black);
+    --theme-arrow-icon: var(--color-black);
+
+    --theme-footer-bg: var(--color-dark-gray-3);
+
+    --theme-footer-main-category: var(--color-white);
+    --theme-footer-category: var(--color-gray-1);
+
+    --theme-footer-separator: var(--color-dark-gray-4);
+    --theme-footer-description: var(--color-light-gray-3);
+    --theme-footer-social-bg: var(--color-dark-gray-5);
+    --theme-footer-social-icon: var(--color-white);
+    --theme-footer-copyright:var(--color-dark-gray-6);
+
+    --theme-seaarch-border: var(--color-dark-gray-7);
+
+    --theme-bg-vertical-card: var(--color-light-gray-4);
+    --theme-title-vertical-card: var(--color-dark-gray-7);
+    --theme-description-vertical-card: var(--color-gray-2);
+
+    --theme-card-breadcrumbs-separator: var(--color-light-gray-5);
+    --theme-card-breadcrumbs-author: var(--color-gray-2);
+    --theme-card-breadcrumbs-main-category: var(--color-red-1);
+    --theme-card-breadcrumbs-hidden: var(--color-gray-3);
+
+    --theme-bg-recommended: var(--color-light-gray-6);
+    --theme-title-recommended-hidden: var(--color-light-gray-7);
+    --theme-title-recommended: var(--color-dark-gray-2);
+    --theme-link-recommended: var(--color-red-1);
+    --theme-recommended-separator: var(--color-gray-5);
+    --theme-text-card-watch: var(--color-gray-3);
+
+    --theme-bg-horizontal-card: var(--color-light-gray-4);
+    --theme-title-horizontal-card: var(--color-black);
+    --theme-description-horizontal-card: var(--color-gray-2);
+
+
+    --theme-title-headline: var(--color-black);
+    --theme-title-compact-card: var(--color-black);
+
+
+    --theme-bg-detail-video-card: var(--color-light-gray-4);
+    --theme-title-detail-video-card: var(--color-dark-gray-8);
+    --theme-description-detail-video-card: var(--color-gray-2);
+
+    --theme-title-video-card: var(--color-white);
+
+    --theme-bg-detailed-card: var(--color-light-gray-4);
+    --theme-title-detailed-card: var(--color-dark-gray-7);
+    --theme-description-detailed-card: var(--color-gray-2);
+
+    --theme-category-title: var(--color-font-black);
+
+    --theme-breadcrumbs-item: var(--color-gray-6);
+    --theme-breadcrumbs-item-last: var(--color-black);
+
+    --theme-border-search: var(--color-light-gray-8);
+    --theme-search-icon-close: var(--color-dark-gray);
+
+    --theme-articles-with-actions-title-bg: var(--color-dark-gray-7);
+    --theme-articles-with-actions-title-font: var(--color-white);
+
+    --theme-checkbox-border: var(--color-light-gray-3);
+    --theme-checkbox-bg: var(--theme-bg);
+    --theme-checkbox-hover-border: var(--color-light-gray-2);
+    --theme-checkbox-checked-bg: var(--color-red-1);
+    --theme-checkbox-checked-border: var(--color-red-1);
+    --theme-checkbox-checkmark: var(--color-white);
+    --theme-checkbox-focus-outline: var(--color-red-1);
+    --theme-checkbox-disabled-bg: var(--color-light-gray-4);
+    --theme-checkbox-disabled-border: var(--color-light-gray-3);
+
+    --theme-button-submit-bg: var(--color-red-1);
+    --theme-button-submit-text: var(--color-white);
+    --theme-button-submit-hover-bg: var(--color-youtube-red);
+    --theme-button-submit-disabled-bg: var(--color-light-gray-3);
+    --theme-button-submit-disabled-text: var(--color-gray-1);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --theme-bg: var(--color-dark-gray);
+    --theme-text: var(--color-white);
+    
+    --theme-theme-bg: var(--color-white);
+    --theme-theme-icon: var(--color-dark-gray);
+
+    --theme-social-bg: var(--color-dark-gray-2);
+    --theme-social-icon: var(--color-white);
+
+    --theme-search-icon: var(--color-white);
+    --theme-arrow-icon: var(--color-white);
+
+
+    --theme-bg-vertical-card: var(--color-dark-gray-2);
+    --theme-title-vertical-card: var(--color-white);
+    --theme-description-vertical-card: var(--color-gray-2);
+    --theme-separator-vertical-card: var(--color-gray-3);
+    --theme-vertical-card-footer-main-category: var(--color-red-1);
+    --theme-vertical-card-footer-author: var(--color-gray-3);
+
+
+    --theme-bg-recommended: var(--color-dark-gray-2);
+    --theme-title-recommended: var(--color-white);
+    --theme-link-recommended: var(--color-red-1);
+    --theme-recommended-separator: var(--color-gray-4);
+    --theme-text-card-watch: var(--color-gray-2);
+
+    --theme-bg-horizontal-card: var(--color-dark-gray-2);
+    --theme-title-horizontal-card: var(--color-white);
+    --theme-description-horizontal-card: var(--color-gray-3);
+
+    --theme-title-headline: var(--color-white);
+    --theme-title-compact-card: var(--color-light-gray-7);
+
+    --theme-bg-detail-video-card: var(--color-dark-gray-2);
+    --theme-title-detail-video-card: var(--color-white);
+    --theme-description-detail-video-card: var(--color-gray-2);
+
+    --theme-bg-detailed-card: var(--color-dark-gray-2);
+    --theme-title-detailed-card: var(--color-white);
+    --theme-description-detailed-card: var(--color-gray-2);
+
+    --theme-border-search: var(--color-dark-gray-7);
+    --theme-search-icon-close: var(--color-white);
+
+    --theme-category-title: var(--color-white);
+
+    --theme-breadcrumbs-item: var(--color-light-gray-5);
+    --theme-breadcrumbs-item-last: var(--color-red-1);
+
+    --theme-checkbox-border: var(--color-dark-gray-7);
+    --theme-checkbox-bg: var(--color-dark-gray-2);
+    --theme-checkbox-hover-border: var(--color-gray-3);
+    --theme-checkbox-checked-bg: var(--color-red-1);
+    --theme-checkbox-checked-border: var(--color-red-1);
+    --theme-checkbox-checkmark: var(--color-white);
+    --theme-checkbox-focus-outline: var(--color-red-1);
+    --theme-checkbox-disabled-bg: var(--color-dark-gray-5);
+    --theme-checkbox-disabled-border: var(--color-dark-gray-7);
+
+    --theme-button-submit-bg: var(--color-red-1);
+    --theme-button-submit-text: var(--color-white);
+    --theme-button-submit-hover-bg: var(--color-youtube-red);
+    --theme-button-submit-disabled-bg: var(--color-dark-gray-5);
+    --theme-button-submit-disabled-text: var(--color-gray-2);
+}
+
+*{  
+    font-family: var(--font-montserrat);
+}
+
+button{
+    outline: none;
+    border: none;
+}
+
+@media(max-width: 1920px) {
+
+
+}
+@media(max-width: 1536px) {
+
+}
+
+@media(max-width: 1200px) {
+
+}
+@media(max-width: 992px) {
+
+}
+@media(max-width: 640px) {
+
+}

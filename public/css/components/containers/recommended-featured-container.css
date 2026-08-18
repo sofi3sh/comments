@@ -1,0 +1,115 @@
+
+.recommended-featured{
+    width: 100%;
+    padding: 30px 20px;
+    background-color: var(--theme-bg-recommended);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.recommended-featured-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.recommended-featured-title--text{
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    color: var(--theme-title-recommended);
+}
+
+.recommended-featured-title--link{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--theme-link-recommended);
+    transition: all 0.2s ease;
+}
+
+.recommended-featured-title--link svg{
+    fill: var(--theme-link-recommended);
+    transition: all 0.2s ease;
+}
+.recommended-featured-title--link:hover{
+    opacity: 0.8;
+}
+.recommended-featured-title--link:hover svg{
+    transform: translateX(1px);
+}
+
+.recommended-featured-cards{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+@media(max-width: 1920px) {
+    .recommended-featured{
+        padding: 24px 20px;
+        border-radius: 8px;
+    }
+    .recommended-featured-title{
+        margin-bottom: 30px;
+    }
+    .recommended-featured-title--text{
+        font-size: 18px;
+    }
+
+}
+@media(max-width: 1536px) {
+    .recommended-featured{
+        gap: 16px;
+    }
+    .recommended-featured{
+        padding: 18px 15px;
+        border-radius: 6px;
+    }
+    .recommended-featured-title{
+        margin-bottom: 20px;
+    }
+
+}
+
+@media(max-width: 1200px) {
+    .recommended-featured{
+        gap: 10px;
+    }
+    .recommended-featured{
+        width: 245px;
+        padding: 23px 15px;
+        border-radius: 6px;
+    }
+}
+@media(max-width: 992px) {
+    .recommended-featured{
+        gap: 20px;
+        flex-direction: column;
+    }
+    .recommended-featured{
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+        background-color: transparent;
+    }
+    .recommended-featured-title{
+        margin-bottom: 20px;
+    }
+    .recommended-featured-title--text{
+        font-size: 26px;
+    }
+}
+@media(max-width: 640px) {
+    .recommended-featured-title--text{
+        font-size: 24px;
+    }
+}
+

@@ -1,0 +1,82 @@
+.dossiers__container{
+    display: flex;
+    gap:20px;
+}
+
+.dossiers__card{
+    flex: 1;
+    background-color: var(--theme-bg-vertical-card);
+    border-radius: 12px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.dossiers__card:hover{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dossiers__card:active{
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dossiers__card-title{
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--theme-title-vertical-card);
+}
+
+
+@media(max-width: 1920px) {
+
+    .dossiers__card-title{
+        font-size: 36px;
+    }
+
+}
+@media(max-width: 1536px) {
+
+    .dossiers__card-title{
+        font-size: 28px;
+    }
+    .dossiers__card{
+        gap: 30px;
+        padding: 40px 20px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .dossiers__card-title{
+        font-size: 24px;
+    }
+    .dossiers__card{
+        gap: 20px;
+        padding: 30px 15px;
+    }
+
+}
+@media(max-width: 992px) {
+
+    .dossiers__card-title{
+        font-size: 22px;
+    }
+
+}
+@media(max-width: 768px) {
+    .dossiers__container{
+        flex-direction: column;
+    }
+}
+@media(max-width: 640px) {
+
+    .dossiers__card-title{
+        font-size: 20px;
+    }
+
+}

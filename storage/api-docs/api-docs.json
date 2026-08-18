@@ -1,0 +1,29 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Comments API",
+        "description": "API for comments",
+        "contact": {
+            "name": "API Support",
+            "email": "support@laravel.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {
+            "get": {
+                "summary": "Get a list of users",
+                "operationId": "4aa27f5922c8959a62a125b4c5a50c73",
+                "responses": {
+                    "200": {
+                        "description": "A list of users"
+                    }
+                }
+            }
+        }
+    }
+}

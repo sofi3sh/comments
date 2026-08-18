@@ -1,0 +1,230 @@
+.horizontal-card{
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--theme-bg-horizontal-card);
+    height: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.horizontal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.horizontal-card__image{
+    width: 240px;
+    height: 100%;
+}
+
+.horizontal-card__image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.horizontal-card__container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.horizontal-card__container-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.horizontal-card__title{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    color: var(--theme-title-horizontal-card);
+    max-width: 95%;
+}
+
+.horizontal-card__like{
+    width: 22px;
+    min-width: 22px;
+    height: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.horizontal-card__like:hover {
+    opacity: 0.7;
+}
+
+.horizontal-card__container-body{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: var(--theme-description-horizontal-card);
+    max-width: 95%;
+}
+
+.horizontal-card__container-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.horizontal-card__container-footer-options{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--theme-text-card-watch);
+}
+
+.horizontal-card__container-footer-options svg{
+    fill: var(--theme-text-card-watch);
+}
+
+.horizontal-card__watch{
+    display: flex;
+    gap: 6px;
+}
+
+.horizontal-card__reference-link{
+    cursor: pointer;
+}
+.horizontal-card__reference-link:hover {
+    opacity: 0.7;
+}
+
+
+
+@media(max-width: 1920px) {
+    .horizontal-card{
+        gap: 50px;
+    }
+    .horizontal-card__image{
+        width: 210px;
+    }
+    .horizontal-card__container{
+        gap: 19px;
+    }
+    .horizontal-card__title{
+        font-size: 22px;
+        max-width: 90%;
+    }
+    .horizontal-card__container-body{
+        max-width: 90%;
+    }
+}
+@media(max-width: 1536px) {
+    .horizontal-card{
+        gap: 40px;
+        padding: 15px;
+        height: 200px;
+    }
+    .horizontal-card__image{
+        width: 160px;
+    }
+    .horizontal-card__container{
+        gap: 19px;
+    }
+    .horizontal-card__title{
+        font-size: 22px;
+        max-width: 90%;
+    }
+    .horizontal-card__container-body{
+        font-size: 12px;
+        max-width: 90%;
+    }
+}
+
+@media(max-width: 1200px) {
+    .horizontal-card{
+        gap: 10px;
+        padding: 14px;
+        height: 190px;
+    }
+    .horizontal-card__image{
+        width: 180px;
+    }
+    .horizontal-card__container{
+        gap: 17px;
+    }
+    .horizontal-card__title{
+        font-size: 16px;
+        max-width: 85%;
+    }
+    .horizontal-card__container-body{
+        font-size: 11px;
+        max-width: 85%;
+    }
+}
+@media(max-width: 992px) {
+    .horizontal-card{
+        gap: 20px;
+        padding: 15px;
+        height: 200px;
+    }
+    .horizontal-card__image{
+        width: 190px;
+    }
+    .horizontal-card__container{
+        gap: 10px;
+    }
+    .horizontal-card__title{
+        font-size: 15px;
+        max-width: 85%;
+    }
+    .horizontal-card__container-body{
+        font-size: 12px;
+        max-width: 85%;
+    }
+}
+@media(max-width: 768px) {
+    .horizontal-card{
+        gap: 15px;
+        padding: 20px;
+        height: 580px;
+        flex-direction: column;
+    }
+    .horizontal-card__image{
+        width: 100%;
+        height: 300px;
+    }
+    .horizontal-card__container{
+        gap: 20px;
+    }
+    .horizontal-card__title{
+        font-size: 24px;
+        max-width: none;
+    }
+    .horizontal-card__like{
+        display: none;
+    }
+    .horizontal-card__container-body{
+        font-size: 16px;
+        max-width: none;
+    }
+    .horizontal-card__container-footer-options{
+        display: none;
+    }
+}
+@media(max-width: 640px) {
+    .horizontal-card{
+        gap: 14px;
+        padding: 14px;
+        height: 300px;
+    }
+    .horizontal-card__image{
+        height: 170px;
+    }
+    .horizontal-card__container{
+        gap: 0;
+    }
+    .horizontal-card__title{
+        font-size: 16px;
+    }
+    .horizontal-card__container-body{
+       display: none;
+    }
+
+}

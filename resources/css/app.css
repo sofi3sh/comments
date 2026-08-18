@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.article-quote {
+    position: relative;
+    margin: 0 0 1rem;
+    padding: 10px 10px 10px 30px;
+    background: rgb(255 0 55 / 15%);
+}
+
+.article-quote::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 100%;
+    background-color: #ff0037;
+    content: '';
+}
+
+.article-quote p {
+    margin: 0;
+}
+
+.article-quote__caption {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-align: right;
+}
+
+.article-quote--center {
+    text-align: center;
+}

@@ -1,0 +1,36 @@
+.consistent{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.featured-all-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color: var(--theme-link-recommended);
+}
+
+@media(max-width: 1536px) {
+    .consistent{
+        gap: 15px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .consistent{
+        gap: 10px;
+    }
+}
+@media(max-width: 992px) {
+    .consistent{
+        gap: 20px;
+    }
+}
+@media(max-width: 768px) {
+    .consistent{
+        gap: 7px;
+    }
+}
