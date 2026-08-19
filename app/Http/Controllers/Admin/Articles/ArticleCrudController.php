@@ -1259,16 +1259,12 @@ class ArticleCrudController extends CrudController
     private function syncArticleSitesFromCategory(Article $article): void
     {
         if (! $article->category_id) {
-            $article->sites()->sync([]);
-
             return;
         }
 
         $category = Category::query()->find($article->category_id);
 
         if (! $category) {
-            $article->sites()->sync([]);
-
             return;
         }
 

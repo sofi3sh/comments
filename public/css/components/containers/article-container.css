@@ -590,6 +590,8 @@
     font-weight: 400;
     line-height: 120%;
     color: var(--theme-text);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 
@@ -600,11 +602,15 @@
     font-size: 18px;
     line-height: 1.6;
     color: var(--theme-text);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .article-container__content li{
     margin: 8px 0;
     line-height: 1.6;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .article-container__content a{
