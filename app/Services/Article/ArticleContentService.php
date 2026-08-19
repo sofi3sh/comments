@@ -252,7 +252,11 @@ class ArticleContentService
         $contentJson = $article->content;
 
         if (!$this->isBlank($contentJson)) {
-            return EditorService::make($contentJson, EditorService::RENDER_ACTION)->toHtml();
+            $rendered = EditorService::make($contentJson, EditorService::RENDER_ACTION)->toHtml();
+
+            if (!$this->isBlank($rendered)) {
+                return $rendered;
+            }
         }
 
         if (!$this->isBlank($contentHtml)) {
