@@ -510,7 +510,7 @@ class Article extends Model implements TranslatableContract, LocalizedUrlContrac
 
     public function getArticleUrl(): string
     {
-        return app(ArticleUrlBuilder::class)->urlForLocale($this, app()->getLocale());
+        return app(ArticleUrlBuilder::class)->urlForLocale($this, app()->getLocale()) ?? '#';
     }
 
 
@@ -546,6 +546,6 @@ class Article extends Model implements TranslatableContract, LocalizedUrlContrac
 
     public function getArticleUrlForLocale(string $locale): string
     {
-        return app(ArticleUrlBuilder::class)->urlForLocale($this, $locale);
+        return app(ArticleUrlBuilder::class)->urlForLocale($this, $locale) ?? '#';
     }
 }
