@@ -153,7 +153,7 @@ import './gallery-modal.js';
         const previewContainer = selectButton ? document.getElementById(selectButton.getAttribute('data-preview-id')) : null;
         const previewImg = previewContainer ? previewContainer.querySelector('.gallery-preview-image') : null;
         
-        if (previewContainer && previewImg && attachment) {
+        if (previewContainer && previewImg && attachment?.url) {
             previewImg.src = attachment.url;
             previewImg.alt = attachment.alt || '';
             previewContainer.style.display = 'block';
@@ -161,7 +161,10 @@ import './gallery-modal.js';
                 const changeText = selectButton.getAttribute('data-text-change') || currentGalleryButtonText(selectButton);
                 updateButtonText(selectButton, changeText, 'la la-edit');
             }
+            return;
         }
+
+        clearGalleryPreview(inputId);
     }
 
     // Keep the hidden input in sync with EditorJS. Notify form listeners for real editor changes,
@@ -182,9 +185,15 @@ import './gallery-modal.js';
     function clearGalleryPreview(inputId) {
         const selectButton = document.querySelector(`.gallery-select-button[data-input-id="${inputId}"]`);
         const previewContainer = selectButton ? document.getElementById(selectButton.getAttribute('data-preview-id')) : null;
+        const previewImg = previewContainer ? previewContainer.querySelector('.gallery-preview-image') : null;
 
         if (previewContainer) {
             previewContainer.style.display = 'none';
+        }
+
+        if (previewImg) {
+            previewImg.removeAttribute('src');
+            previewImg.alt = '';
         }
 
         if (selectButton) {
@@ -193,16 +202,57 @@ import './gallery-modal.js';
         }
     }
 
+    function firstGalleryImageData(galleryData) {
+        if (!galleryData) {
+            return null;
+        }
+
+        if (Array.isArray(galleryData.images) && galleryData.images.length > 0) {
+            return galleryData.images.find(image => image && (image.attachment_id || image.is_default)) || null;
+        }
+
+        return galleryData.attachment_id || galleryData.is_default ? galleryData : null;
+    }
+
+    async function fetchAttachmentDetails(id) {
+        if (!id) {
+            return null;
+        }
+
+        try {
+            const response = await fetch(`/api/attachments/${id}`, {
+                headers: { Accept: 'application/json' },
+            });
+            const payload = await response.json();
+
+            return response.ok && payload.success ? payload.data : null;
+        } catch (_) {
+            return null;
+        }
+    }
+
+    async function previewAttachmentFromGalleryData(inputId, galleryData) {
+        const image = firstGalleryImageData(galleryData);
+
+        if (!image) {
+            clearGalleryPreview(inputId);
+            return;
+        }
+
+        if (image.url) {
+            updateGalleryPreview(inputId, image);
+            return;
+        }
+
+        const attachment = await fetchAttachmentDetails(image.attachment_id);
+        updateGalleryPreview(inputId, attachment);
+    }
+
     function updateGalleryOnlyPreviewFromData(inputId, data) {
         const galleryBlock = data.blocks && data.blocks.find(block => block.type === 'gallery');
 
         if (galleryBlock && galleryBlock.data) {
-            updateGalleryPreview(inputId, {
-                url: galleryBlock.data.url,
-                alt: galleryBlock.data.alt || '',
-                title: galleryBlock.data.title || '',
-                caption: galleryBlock.data.caption || '',
-            });
+            previewAttachmentFromGalleryData(inputId, galleryBlock.data);
 
             return;
         }
@@ -278,15 +328,7 @@ import './gallery-modal.js';
             const galleryBlock = data.blocks.find(block => block.type === 'gallery');
             
             if (galleryBlock && galleryBlock.data) {
-                // console.log('[EditorJS] Found gallery block:', galleryBlock);
-                const attachment = {
-                    url: galleryBlock.data.url,
-                    alt: galleryBlock.data.alt || '',
-                    title: galleryBlock.data.title || '',
-                    caption: galleryBlock.data.caption || '',
-                };
-                // console.log('[EditorJS] Updating preview with attachment:', attachment);
-                updateGalleryPreview(inputId, attachment);
+                previewAttachmentFromGalleryData(inputId, galleryBlock.data);
             } else {
                 console.log('[EditorJS] No gallery block found in data');
             }
@@ -315,11 +357,20 @@ import './gallery-modal.js';
                     const galleryBlockIndex = existingBlocks.findIndex(block => block.type === 'gallery');
                     
                     const galleryData = {
-                        attachment_id: attachment.id,
+                        attachment_id: attachment.id || null,
+                        is_default: Boolean(attachment.is_default),
                         url: attachment.url,
                         alt: attachment.alt || '',
                         title: attachment.title || '',
                         caption: attachment.caption || '',
+                        images: [{
+                            attachment_id: attachment.id || null,
+                            is_default: Boolean(attachment.is_default),
+                            url: attachment.url,
+                            alt: attachment.alt || '',
+                            title: attachment.title || '',
+                            caption: attachment.caption || '',
+                        }],
                     };
                     
                     if (galleryBlockIndex !== -1) {
@@ -477,23 +528,9 @@ import './gallery-modal.js';
                         if (isGalleryOnly) {
                             const galleryBlock = saved.blocks && saved.blocks.find(block => block.type === 'gallery');
                             if (galleryBlock && galleryBlock.data) {
-                                const attachment = {
-                                    url: galleryBlock.data.url,
-                                    alt: galleryBlock.data.alt || '',
-                                    title: galleryBlock.data.title || '',
-                                    caption: galleryBlock.data.caption || '',
-                                };
-                                updateGalleryPreview(inputId, attachment);
+                                previewAttachmentFromGalleryData(inputId, galleryBlock.data);
                             } else {
-                                const selectButton = document.querySelector(`.gallery-select-button[data-editor-id="${el.id}"]`);
-                                const previewContainer = selectButton ? document.getElementById(selectButton.getAttribute('data-preview-id')) : null;
-                                if (previewContainer) {
-                                    previewContainer.style.display = 'none';
-                                }
-                                if (selectButton) {
-                                    const selectText = selectButton.getAttribute('data-text-select') || currentGalleryButtonText(selectButton);
-                                    updateButtonText(selectButton, selectText, 'la la-image');
-                                }
+                                clearGalleryPreview(inputId);
                             }
                         }
                     } catch (e) {

@@ -1,6 +1,17 @@
 <script>
     window.editorGalleryConfig = Object.assign(window.editorGalleryConfig || {}, {
         maxImages: @json(config('editor.max_gallery_images')),
+        defaultAttachment: {
+            id: null,
+            is_default: true,
+            url: @json(asset(config('app.default_cover'))),
+            thumbnail_url: @json(asset(config('app.default_cover'))),
+            filename: @json(basename(config('app.default_cover'))),
+            alt: 'Default cover',
+            title: 'Default cover',
+            caption: '',
+            mime_type: 'image/webp',
+        },
     });
 </script>
 @vite('resources/js/editorjs.js')

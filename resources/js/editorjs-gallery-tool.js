@@ -40,7 +40,10 @@ export default class GalleryTool {
         this.data.images.forEach((image, index) => {
             const item = document.createElement('div');
             item.className = 'image-gallery-tool__item';
-            item.innerHTML = `<img src="${this._escape(image.url)}" alt="${this._escape(image.alt || '')}"><div class="image-gallery-tool__fields"><strong>${this._escape(image.title || image.filename || `Зображення #${image.attachment_id}`)}</strong></div>`;
+            const imageMarkup = image.url
+                ? `<img src="${this._escape(image.url)}" alt="${this._escape(image.alt || '')}">`
+                : '<div class="image-gallery-tool__placeholder"></div>';
+            item.innerHTML = `${imageMarkup}<div class="image-gallery-tool__fields"><strong>${this._escape(image.title || image.filename || `Зображення #${image.attachment_id}`)}</strong></div>`;
             if (!this.readOnly) {
                 const controls = document.createElement('div');
                 controls.className = 'image-gallery-tool__controls';
@@ -120,6 +123,28 @@ export default class GalleryTool {
         else setTimeout(open, 100);
     }
 
-    save() { return { images: this.data.images.map(image => ({ attachment_id: image.attachment_id })) }; }
+    save() {
+        const images = this.data.images
+            .map(image => ({
+                attachment_id: image.attachment_id,
+                is_default: Boolean(image.is_default),
+                url: image.url || '',
+                alt: image.alt || '',
+                title: image.title || '',
+                caption: image.caption || '',
+            }))
+            .filter(image => image.attachment_id || image.is_default);
+
+        const first = images[0] || {};
+
+        return {
+            attachment_id: first.attachment_id,
+            url: first.url || '',
+            alt: first.alt || '',
+            title: first.title || '',
+            caption: first.caption || '',
+            images,
+        };
+    }
     static get sanitize() { return { images: {} }; }
 }
