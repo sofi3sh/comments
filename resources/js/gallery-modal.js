@@ -16,6 +16,7 @@ class GalleryModal {
         this.articleTags = [];
         this.isUploading = false;
         this.eventListenersAttached = false;
+        this.defaultAttachment = window.editorGalleryConfig?.defaultAttachment || null;
         
         // Initialize modal when DOM is ready
         if (document.readyState === 'loading') {
@@ -459,7 +460,7 @@ class GalleryModal {
             const data = await response.json();
 
             if (data.success && data.data) {
-                this._renderAttachments(data.data);
+                this._renderAttachments(this._attachmentsForCurrentView(data.data));
                 this._renderPagination(data.pagination);
             } else {
                 grid.innerHTML = '<div class="gallery-error">Помилка завантаження</div>';
@@ -467,6 +468,22 @@ class GalleryModal {
         } catch (error) {
             grid.innerHTML = '<div class="gallery-error">Помилка завантаження: ' + error.message + '</div>';
         }
+    }
+
+    _attachmentsForCurrentView(attachments) {
+        if (
+            this.multiple ||
+            this.searchQuery ||
+            !this.defaultAttachment?.url
+        ) {
+            return attachments;
+        }
+
+        return [this.defaultAttachment, ...attachments];
+    }
+
+    _attachmentKey(attachment) {
+        return attachment?.is_default ? '__default__' : String(attachment?.id || '');
     }
 
     /**
@@ -483,16 +500,17 @@ class GalleryModal {
 
         grid.innerHTML = attachments.map(attachment => {
             const isImage = attachment.mime_type && attachment.mime_type.startsWith('image/');
+            const attachmentKey = this._attachmentKey(attachment);
             const isSelected = this.multiple
-                ? this.selectedAttachments.has(attachment.id)
-                : this.selectedAttachment && this.selectedAttachment.id === attachment.id;
+                ? this.selectedAttachments.has(attachmentKey)
+                : this.selectedAttachment && this._attachmentKey(this.selectedAttachment) === attachmentKey;
             // Use thumbnail_url if available, otherwise use url
             const imageUrl = attachment.thumbnail_url || attachment.url || '';
 
             return `
                 <div class="gallery-item ${isSelected ? 'gallery-item-selected' : ''}" 
-                     data-id="${attachment.id}"
-                     onclick="window.GalleryModal.selectAttachment(${attachment.id})">
+                     data-id="${attachmentKey}"
+                     onclick="window.GalleryModal.selectAttachment('${attachmentKey}')">
                     ${isImage && imageUrl ? `
                         <img src="${imageUrl}" alt="${attachment.alt || ''}" class="gallery-item-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'gallery-item-icon\\'>📄</div>';">
                     ` : `
@@ -555,13 +573,24 @@ class GalleryModal {
      * Select attachment
      */
     async selectAttachment(id) {
+        if (id === '__default__') {
+            if (this.multiple || !this.defaultAttachment) {
+                return;
+            }
+
+            this.selectedAttachment = this.defaultAttachment;
+            this._updateSelection();
+            return;
+        }
+
         if (!this.multiple) {
             await this._loadAttachmentDetails(id);
             return;
         }
 
-        if (this.selectedAttachments.has(id)) {
-            this.selectedAttachments.delete(id);
+        const key = String(id);
+        if (this.selectedAttachments.has(key)) {
+            this.selectedAttachments.delete(key);
             this._updateSelection();
             return;
         }
@@ -571,7 +600,7 @@ class GalleryModal {
         }
         const attachment = await this._fetchAttachmentDetails(id);
         if (attachment) {
-            this.selectedAttachments.set(attachment.id, attachment);
+            this.selectedAttachments.set(this._attachmentKey(attachment), attachment);
             this._updateSelection();
         }
     }
@@ -620,10 +649,10 @@ class GalleryModal {
     _updateSelection() {
         // Update grid items
         document.querySelectorAll('.gallery-item').forEach(item => {
-            const itemId = parseInt(item.getAttribute('data-id'));
+            const itemId = item.getAttribute('data-id');
             const selected = this.multiple
                 ? this.selectedAttachments.has(itemId)
-                : this.selectedAttachment && itemId === this.selectedAttachment.id;
+                : this.selectedAttachment && itemId === this._attachmentKey(this.selectedAttachment);
             if (selected) {
                 item.classList.add('gallery-item-selected');
             } else {
@@ -693,11 +722,15 @@ class GalleryModal {
             formData.append('caption', document.getElementById('gallery-upload-caption')?.value || '');
 
             const values = this.tagSelect?.val?.() || [];
+            const tagIds = (values instanceof Array ? values : [values]).filter(Boolean);
 
-            (values instanceof Array ? values : [values]).forEach(tagId => {
-                if (tagId) {
-                    formData.append('tag_ids[]', tagId);
-                }
+            if (tagIds.length === 0) {
+                this._showUploadError('Оберіть хоча б один тег.');
+                return;
+            }
+
+            tagIds.forEach(tagId => {
+                formData.append('tag_ids[]', tagId);
             });
 
             // Add article tags for filename generation

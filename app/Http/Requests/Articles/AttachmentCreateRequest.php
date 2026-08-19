@@ -30,8 +30,16 @@ class AttachmentCreateRequest extends FormRequest
             'title'        => 'nullable|string|max:255',
             'caption'      => 'nullable|string|max:255',
             'article_tags' => 'nullable|array',
-            'tag_ids'      => 'nullable|array',
+            'tag_ids'      => 'required|array|min:1',
             'tag_ids.*'    => 'integer|exists:tags,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'tag_ids.required' => 'Оберіть хоча б один тег.',
+            'tag_ids.min' => 'Оберіть хоча б один тег.',
         ];
     }
 

@@ -1453,10 +1453,8 @@ class ArticleCrudController extends CrudController
             return null;
         }
 
-        $attachmentId = data_get(
-            $galleryBlock,
-            'data.attachment_id'
-        );
+        $attachmentId = data_get($galleryBlock, 'data.attachment_id')
+            ?: data_get($galleryBlock, 'data.images.0.attachment_id');
 
         if (!$attachmentId) {
             return null;

@@ -25,7 +25,34 @@
             'version' => '2.24.3'
         ]);
     } else {
-        $fieldValue = '';
+        $defaultCoverUrl = asset(config('app.default_cover'));
+        $fieldValue = json_encode([
+            'time' => time(),
+            'blocks' => [
+                [
+                    'type' => 'gallery',
+                    'data' => [
+                        'attachment_id' => null,
+                        'is_default' => true,
+                        'url' => $defaultCoverUrl,
+                        'alt' => 'Default cover',
+                        'title' => 'Default cover',
+                        'caption' => '',
+                        'images' => [
+                            [
+                                'attachment_id' => null,
+                                'is_default' => true,
+                                'url' => $defaultCoverUrl,
+                                'alt' => 'Default cover',
+                                'title' => 'Default cover',
+                                'caption' => '',
+                            ],
+                        ],
+                    ]
+                ]
+            ],
+            'version' => '2.24.3'
+        ]);
     }
 @endphp
 
