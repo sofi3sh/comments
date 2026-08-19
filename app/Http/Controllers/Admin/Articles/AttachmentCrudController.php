@@ -268,13 +268,13 @@ class AttachmentCrudController extends CrudController
         $formRequest = AttachmentCreateRequest::createFromBase(request());
         $formRequest->setContainer(app())->setRedirector(app('redirect'));
         $formRequest->validateResolved();
-        $formRequest->validated();
+        $validated = $formRequest->validated();
 
         $request = $this->crud->getRequest();
         $file = $request->file('file');
 
         if ($file) {
-            $attachment = $this->uploadService->upload($file, $request->all());
+            $attachment = $this->uploadService->upload($file, $validated);
 
             $this->crud->entry = $attachment;
 
@@ -285,4 +285,3 @@ class AttachmentCrudController extends CrudController
     }
 
 }
-
