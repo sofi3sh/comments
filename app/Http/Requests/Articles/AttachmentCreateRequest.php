@@ -6,6 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AttachmentCreateRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        if (!$this->has('tag_ids') && $this->has('tags')) {
+            $this->merge([
+                'tag_ids' => $this->input('tags'),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         $attachmentImageConfig = config('attachments.image');
@@ -30,6 +39,7 @@ class AttachmentCreateRequest extends FormRequest
             'title'        => 'nullable|string|max:255',
             'caption'      => 'nullable|string|max:255',
             'article_tags' => 'nullable|array',
+            'tags'         => 'nullable|array',
             'tag_ids'      => 'required|array|min:1',
             'tag_ids.*'    => 'integer|exists:tags,id',
         ];

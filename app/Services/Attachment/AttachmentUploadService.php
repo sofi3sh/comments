@@ -77,8 +77,10 @@ class AttachmentUploadService
         }
 
         // 3. tags
-        if (!empty($data['tag_ids'])) {
-            $attachment->tags()->sync(array_map('intval', (array)$data['tag_ids']));
+        $tagIds = $data['tag_ids'] ?? $data['tags'] ?? [];
+
+        if (!empty($tagIds)) {
+            $attachment->tags()->sync(array_map('intval', (array)$tagIds));
         }
 
         return $attachment;
