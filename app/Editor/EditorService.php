@@ -42,19 +42,44 @@ final class EditorService
         }
 
         foreach ($data['blocks'] as &$block) {
-            if (!is_array($block) || ($block['type'] ?? null) !== 'highlightedText') {
+            if (!is_array($block)) {
                 continue;
             }
 
-            $block['type'] = 'quote';
-            $block['data'] = [
-                'text' => $block['data']['text'] ?? '',
-                'caption' => $block['data']['caption'] ?? '',
-                'alignment' => $block['data']['alignment'] ?? 'left',
-            ];
+            if (($block['type'] ?? null) === 'highlightedText') {
+                $block['type'] = 'quote';
+                $block['data'] = [
+                    'text' => $block['data']['text'] ?? '',
+                    'caption' => $block['data']['caption'] ?? '',
+                    'alignment' => $block['data']['alignment'] ?? 'left',
+                ];
+
+                continue;
+            }
+
+            if (($block['type'] ?? null) === 'paragraph') {
+                $block['data']['text'] = self::unwrapLegacyParagraphText(
+                    $block['data']['text'] ?? ''
+                );
+            }
         }
         unset($block);
 
         return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: $json;
+    }
+
+    private static function unwrapLegacyParagraphText(mixed $text): string
+    {
+        if (!is_string($text)) {
+            return '';
+        }
+
+        $trimmed = trim($text);
+
+        if (!preg_match('/^<p(?:\s[^>]*)?>(.*)<\/p>$/is', $trimmed, $matches)) {
+            return $text;
+        }
+
+        return $matches[1];
     }
 }
