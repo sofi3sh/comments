@@ -70,7 +70,7 @@ return [
     ],
 
     'gtm' => [
-        'id' => 'G-YH0N1R99L8&cx=c&gtm=4e66t1h1', //todo
+        'id' => env('GTM_ID'),
     ],
 
 ];

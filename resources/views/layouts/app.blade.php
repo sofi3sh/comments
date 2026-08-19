@@ -41,7 +41,7 @@
             </style>
         @endif
 
-        <script src="{{ asset('scripts/index/render-theme.js', true) }}"></script>
+        <script src="{{ asset('scripts/index/render-theme.js') }}"></script>
 
         @stack('styles')
 
@@ -64,7 +64,7 @@
 
        @include('partials.footer')
 
-       <script type="module" src="{{ asset('scripts/index.js', true) }}"></script>
+       <script type="module" src="{{ asset('scripts/index.js') }}"></script>
 
        @stack('scripts')
     </body>

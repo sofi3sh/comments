@@ -64,7 +64,8 @@ return [
         */
 
         'public' => [
-            'driver' => 's3',
+            'driver' => env('UPLOADS_DISK', 's3'),
+            'root' => storage_path('app/public'),
             'key' => env('UPLOADS_S3_KEY', env('STATIC_S3_KEY')),
             'secret' => env('UPLOADS_S3_SECRET', env('STATIC_S3_SECRET')),
             'region' => env('UPLOADS_S3_REGION', env('STATIC_S3_REGION', 'us-east-1')),
@@ -72,6 +73,8 @@ return [
             'url' => env('UPLOADS_URL', env('APP_URL').'/storage'),
             'endpoint' => env('UPLOADS_S3_ENDPOINT', env('STATIC_S3_ENDPOINT')),
             'use_path_style_endpoint' => (bool) env('UPLOADS_S3_PATH_STYLE', env('STATIC_S3_PATH_STYLE', true)),
+            'visibility' => 'public',
+            'serve' => true,
             // A failed upload used to be a silent `false` from the local disk.
             // Over the network it is a network error worth surfacing, so the
             // request fails instead of writing an attachment row with no file.
@@ -191,13 +194,16 @@ return [
     | `storage:link` Artisan command is executed. The array keys should be
     | the locations of the links and the values should be their targets.
     |
-    | Deliberately empty: the `public` disk is object storage, so a
-    | public/storage symlink would point at a directory nothing writes to, and
-    | nginx serves /storage/ straight from the bucket. `storage:link` in the
-    | container entrypoints is a harmless no-op with no links configured.
+        | Deliberately empty for object storage: the `public` disk writes to S3
+        | and nginx serves /storage/ straight from the bucket. When the local
+        | uploads disk is enabled, storage:link restores Laravel's public symlink.
     |
     */
 
-    'links' => [],
+    'links' => env('UPLOADS_DISK') === 'local'
+        ? [
+            public_path('storage') => storage_path('app/public'),
+        ]
+        : [],
 
 ];
