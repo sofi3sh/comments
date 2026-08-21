@@ -23,6 +23,7 @@ return [
         'file_replace' => 'Replace File',
         'current_file' => 'Current File',
         'tags'         => 'Tags',
+        'is_public'    => 'Public photo',
     ],
     'hints' => [
         'filename' => 'Filename is automatically generated',
@@ -34,4 +35,3 @@ return [
         'updated' => 'File successfully updated',
     ],
 ];
-

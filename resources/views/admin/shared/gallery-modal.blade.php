@@ -73,6 +73,14 @@
                                 multiple>
                         </select>
                     </div>
+                    @if(backpack_user() && backpack_user()->hasRole('Admin', 'web'))
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="gallery-upload-is-public" value="1">
+                            Публічне фото
+                        </label>
+                    </div>
+                    @endif
                     <div id="gallery-upload-error" class="gallery-upload-error" style="display:none;"></div>
                 </div>
                 <div class="gallery-upload-actions">

@@ -520,6 +520,7 @@ class GalleryModal {
                         <div class="gallery-item-info">
                             <div class="gallery-item-name">${attachment.filename}</div>
                             ${attachment.alt ? `<div class="gallery-item-alt">${attachment.alt}</div>` : ''}
+                            ${attachment.is_public ? '<div class="gallery-item-alt">Публічне</div>' : ''}
                         </div>
                     </div>
                     ${isSelected ? '<div class="gallery-item-check">✓</div>' : ''}
@@ -720,6 +721,7 @@ class GalleryModal {
             formData.append('alt', document.getElementById('gallery-upload-alt')?.value || '');
             formData.append('title', document.getElementById('gallery-upload-title')?.value || '');
             formData.append('caption', document.getElementById('gallery-upload-caption')?.value || '');
+            formData.append('is_public', document.getElementById('gallery-upload-is-public')?.checked ? '1' : '0');
 
             const values = this.tagSelect?.val?.() || [];
             const tagIds = (values instanceof Array ? values : [values]).filter(Boolean);
@@ -791,6 +793,10 @@ class GalleryModal {
                 document.getElementById('gallery-upload-alt').value = '';
                 document.getElementById('gallery-upload-title').value = '';
                 document.getElementById('gallery-upload-caption').value = '';
+                const isPublicInput = document.getElementById('gallery-upload-is-public');
+                if (isPublicInput) {
+                    isPublicInput.checked = false;
+                }
                 document.getElementById('gallery-upload-form').style.display = 'none';
                 document.getElementById('gallery-upload-preview').innerHTML = '';
 

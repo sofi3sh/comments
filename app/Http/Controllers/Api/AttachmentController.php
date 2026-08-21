@@ -80,9 +80,12 @@ class AttachmentController extends Controller
             ]);
         }
 
-        //TODO   USE user role to access all images
-
-        $query->where('user_id', $user->id);
+        if (!$user->hasRole('Admin', 'web')) {
+            $query->where(function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->orWhere('is_public', true);
+            });
+        }
 
         $perPage = $request->get('per_page', 20);
         $attachments = $query->paginate($perPage);
@@ -144,6 +147,8 @@ class AttachmentController extends Controller
     {
         $attachment = Attachment::parents()->with('user')->findOrFail($id);
 
+        abort_unless($this->canAccessAttachment($attachment), 403);
+
         return response()->json([
             'success' => true,
             'data' => [
@@ -154,6 +159,7 @@ class AttachmentController extends Controller
                 'alt' => $attachment->alt,
                 'title' => $attachment->title,
                 'caption' => $attachment->caption,
+                'is_public' => $attachment->is_public,
                 'mime_type' => $attachment->mime_type,
                 'size' => $attachment->size,
                 'formatted_size' => $attachment->formatted_size,
@@ -180,10 +186,20 @@ class AttachmentController extends Controller
             'alt'     => 'nullable|string|max:255',
             'title'   => 'nullable|string|max:255',
             'caption' => 'nullable|string|max:255',
+            'is_public' => 'boolean',
         ]);
 
         $attachment = Attachment::parents()->findOrFail($id);
-        $attachment->update($request->only(['alt', 'title', 'caption']));
+
+        abort_unless($this->canModifyAttachment($attachment), 403);
+
+        $data = $request->only(['alt', 'title', 'caption']);
+
+        if (backpack_user()?->hasRole('Admin', 'web')) {
+            $data['is_public'] = $request->boolean('is_public');
+        }
+
+        $attachment->update($data);
 
         return response()->json([
             'success' => true,
@@ -195,6 +211,7 @@ class AttachmentController extends Controller
                 'alt'      => $attachment->alt,
                 'title'    => $attachment->title,
                 'caption'  => $attachment->caption,
+                'is_public' => $attachment->is_public,
             ],
         ]);
     }
@@ -208,6 +225,8 @@ class AttachmentController extends Controller
     public function destroy($id)
     {
         $attachment = Attachment::parents()->findOrFail($id);
+
+        abort_unless($this->canModifyAttachment($attachment), 403);
         
         // Delete file from storage
         if ($this->disk->exists($attachment->path)) {
@@ -222,5 +241,29 @@ class AttachmentController extends Controller
         ]);
     }
 
-}
+    private function canAccessAttachment(Attachment $attachment): bool
+    {
+        $user = backpack_user();
 
+        if (!$user) {
+            return false;
+        }
+
+        return $user->hasRole('Admin', 'web')
+            || $attachment->user_id === $user->id
+            || $attachment->is_public;
+    }
+
+    private function canModifyAttachment(Attachment $attachment): bool
+    {
+        $user = backpack_user();
+
+        if (!$user) {
+            return false;
+        }
+
+        return $user->hasRole('Admin', 'web')
+            || $attachment->user_id === $user->id;
+    }
+
+}
