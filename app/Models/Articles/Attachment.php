@@ -32,6 +32,7 @@ class Attachment extends Model
         'title',
         'caption',
         'user_id',
+        'is_public',
         'metadata',
     ];
 
@@ -40,6 +41,7 @@ class Attachment extends Model
         'parent_id' => 'integer',
         'size' => 'integer',
         'user_id' => 'integer',
+        'is_public' => 'boolean',
     ];
 
     protected $appends = [

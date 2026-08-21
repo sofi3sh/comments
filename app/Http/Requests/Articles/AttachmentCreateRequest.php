@@ -13,6 +13,10 @@ class AttachmentCreateRequest extends FormRequest
                 'tag_ids' => $this->input('tags'),
             ]);
         }
+
+        $this->merge([
+            'is_public' => $this->boolean('is_public'),
+        ]);
     }
 
     public function rules(): array
@@ -42,6 +46,7 @@ class AttachmentCreateRequest extends FormRequest
             'tags'         => 'nullable|array',
             'tag_ids'      => 'required|array|min:1',
             'tag_ids.*'    => 'integer|exists:tags,id',
+            'is_public'    => 'boolean',
         ];
     }
 

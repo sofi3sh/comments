@@ -57,6 +57,8 @@ class AttachmentUploadService
 
         $cover = $sizes['cover'] ?? null;
 
+        $isPublic = $authUser->hasRole('Admin', 'web') && (bool)($data['is_public'] ?? false);
+
         // 2. create attachment
         $attachment = Attachment::create([
             'parent_id'  => null,
@@ -69,6 +71,7 @@ class AttachmentUploadService
             'title'      => $data['title'] ?? null,
             'caption'    => $data['caption'] ?? null,
             'user_id'    => $authUser->id,
+            'is_public'  => $isPublic,
             'metadata'   => $this->buildMetadata($cover),
         ]);
 
@@ -174,6 +177,7 @@ class AttachmentUploadService
                 'title'     => $parent->title,
                 'caption'   => $parent->caption,
                 'user_id'   => $parent->user_id,
+                'is_public' => $parent->is_public,
                 'metadata'  => $this->buildMetadata($size),
             ]);
         }

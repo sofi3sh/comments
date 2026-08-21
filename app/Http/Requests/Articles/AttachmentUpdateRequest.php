@@ -6,6 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AttachmentUpdateRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_public' => $this->boolean('is_public'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
@@ -15,6 +22,7 @@ class AttachmentUpdateRequest extends FormRequest
             'article_tags' => 'nullable|array',
             'tag_ids'      => 'nullable|array',
             'tag_ids.*'    => 'integer|exists:tags,id',
+            'is_public'    => 'boolean',
         ];
     }
 }

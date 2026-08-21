@@ -45,6 +45,14 @@ class AttachmentCrudController extends CrudController
     {
         $this->crud->query->parents()->with('tags');
 
+        $user = backpack_user();
+        if ($user && !$user->hasRole('Admin', 'web')) {
+            $this->crud->query->where(function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->orWhere('is_public', true);
+            });
+        }
+
         CRUD::addColumn([
             'name'  => 'id',
             'label' => __('attachment.fields.id'),
@@ -94,6 +102,12 @@ class AttachmentCrudController extends CrudController
             'function' => function ($entry) {
                 return $entry->tags->pluck('name')->join(', ') ?: '—';
             },
+        ]);
+
+        CRUD::addColumn([
+            'name'  => 'is_public',
+            'label' => __('attachment.fields.is_public'),
+            'type'  => 'boolean',
         ]);
 
         CRUD::addColumn([
@@ -173,6 +187,16 @@ class AttachmentCrudController extends CrudController
             'placeholder' => __('article.fields.tags'),
             'minimum_input_length' => 3,
         ]);
+
+        CRUD::addField([
+            'name' => 'is_public',
+            'label' => __('attachment.fields.is_public'),
+            'type' => 'checkbox',
+            'default' => false,
+            'wrapper' => [
+                'class' => 'form-group col-md-12',
+            ],
+        ]);
     }
 
     /**
@@ -251,6 +275,15 @@ class AttachmentCrudController extends CrudController
             'minimum_input_length' => 2,
             'include_all_form_fields' => false,
             'placeholder' => __('article.fields.tags'),
+            'wrapper' => [
+                'class' => 'form-group col-md-12',
+            ],
+        ]);
+
+        CRUD::addField([
+            'name' => 'is_public',
+            'label' => __('attachment.fields.is_public'),
+            'type' => 'checkbox',
             'wrapper' => [
                 'class' => 'form-group col-md-12',
             ],
