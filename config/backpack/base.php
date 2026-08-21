@@ -71,6 +71,10 @@ return [
     // Defaults to 1,10 - 1 time in 10 minutes.
     'email_verification_throttle_access' => '3,15',
 
+    // Temporary switch for the custom Backpack email verification gate.
+    // Set BACKPACK_ENFORCE_EMAIL_VERIFICATION=true to require verified emails again.
+    'enforce_email_verification' => env('BACKPACK_ENFORCE_EMAIL_VERIFICATION', false),
+
     /*
     |--------------------------------------------------------------------------
     | Security

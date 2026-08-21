@@ -11,6 +11,10 @@ class EnsureBackpackEmailVerified
 
     public function handle(Request $request, Closure $next): Response
     {
+        if (! config('backpack.base.enforce_email_verification', false)) {
+            return $next($request);
+        }
+
         if ($request->routeIs('verification.*')) {
             return $next($request);
         }
